@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package gateway;
+
+option java_multiple_files = true;
+option java_package = "com.example.proto";
+
+service TagService {
+    rpc getTag (TagRequest) returns (TagResponse) {}
+}
+
+service LoyaltyService {
+    rpc getMultipliers (LoyaltyRequest) returns (LoyaltyResponse) {}
+}
+
+service ReportsService {
+    rpc postReport (ReportRequest) returns (Empty) {}
+}
+
+service PointsTransactionService {
+    rpc postTransaction (PointTransactionRequest) returns (Empty) {}
+}
+
+message Empty {}
+
+message TagRequest {
+    repeated int32 ids = 1;
+}
+
+message TagResponse {
+    map<string, Tags> tags = 1;
+}
+
+message Tags {
+    repeated string tags = 1;
+}
+
+
+message LoyaltyRequest {
+    repeated ShoppingItem message = 1;
+}
+
+message LoyaltyResponse {
+    map<string, int32> multipliers = 1;
+}
+
+message ShoppingItem {
+    int32 productId = 1;
+    string productName = 2;
+    string amount = 3;
+    string each = 4;
+    string price = 5;
+    repeated string tags = 6;
+}
+
+message ReportRequest {
+    repeated User users = 1;
+    int64 start = 2;
+    int64 end = 3;
+}
+
+message User {
+    int32 userID = 1;
+    string name = 2;
+    string email = 3;
+}
+
+message PointTransactionRequest {
+    int32 userID = 1;
+    int32 sustainabilityPoints = 2;
+    int32 totalPoints = 3;
+    int64 date = 4;
+}
