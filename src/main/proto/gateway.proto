@@ -41,7 +41,7 @@ message LoyaltyRequest {
 }
 
 message LoyaltyResponse {
-    map<string, int32> multipliers = 1;
+    map<string, float> multipliers = 1;
 }
 
 message ShoppingItem {
